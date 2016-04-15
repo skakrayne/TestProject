@@ -2,6 +2,7 @@
 
 
 // var React = require('react-native');
+var ListPage = require('./ListPage');
 
 import React, {
   AppRegistry,
@@ -10,7 +11,8 @@ import React, {
   Text,
   View,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  Navigator
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -21,11 +23,15 @@ var styles = StyleSheet.create({
         flex:1,
         margin: 30,
     },
+    box:{
+        padding: 20,
+         
+    },
     heading:{
         fontSize:20 ,
         marginBottom: 30,
         color:'black',
-        marginTop: 70
+        marginTop: 40
     },
     bottom_margin:{
         marginBottom: 20
@@ -48,12 +54,35 @@ var styles = StyleSheet.create({
     }
 });
 
+var _navigator;
 
+class TestPage extends Component{
+    
+    render(){
+    var layout = <View style={styles.container}>
+        <Text>
+          Search for houses to buy!
+        </Text>
+        <Text>
+          Search by place-name, postcode or search near your location.
+        </Text>
+      </View>;
+      
+      return layout;
+    }
+      
+}
 
 class LoginPage extends React.Component{
+    _onLogin(){
+     _navigator.push({
+            name: 'ListViewPage',
+            renderScene: RouteMapper
+          });
+    }
     render(){
         var layout =
-            <ScrollView style = { styles.container } >
+            <ScrollView style = { styles.box }>
     
                 <Text style={styles.heading}>
                     Please Enter your Login Credentials
@@ -62,15 +91,19 @@ class LoginPage extends React.Component{
                 <Text style={styles.text}>
                     Username
                 </Text>
-                <React.TextInput style={styles.bottom_margin}/>
+                <React.TextInput style={styles.bottom_margin}
+                placeholder="Username"
+                placeholderTextColor="rgba(255, 255, 255, 0.5)"/>
     
                 <Text style={styles.text}>
                     Password
                 </Text>
                 
-                <React.TextInput />
+                <React.TextInput placeholder="Password"
+                placeholderTextColor="rgba(255, 255, 255, 0.5)"/>
                 
                 <TouchableHighlight style={styles.button}
+                    onPress={this._onLogin.bind(this)}
                     underlayColor='#99d9f4'>
                 <Text style={styles.buttonText}>Login</Text>
                 </TouchableHighlight>
@@ -80,4 +113,31 @@ class LoginPage extends React.Component{
     }
 };
 
-AppRegistry.registerComponent('TestProject' , function(){return LoginPage});
+var RouteMapper = function(route, navigationOperations, onComponentRef) {
+  _navigator = navigationOperations;
+  
+  if (route.name === 'LoginPage') {
+    return (
+      <LoginPage navigator={navigationOperations} />
+    );
+  } else if (route.name === 'ListViewPage') {
+    return (
+      <ListPage navigator={navigationOperations}/>
+    );
+  }
+};
+
+
+class TestProject extends React.Component{
+     render(){
+         var navigator = <Navigator
+                            style={styles.container}
+                            initialRoute={{name: 'LoginPage', index: 0}}
+                            renderScene={RouteMapper}
+                        />;
+                        return navigator;
+        }
+};
+
+
+AppRegistry.registerComponent('TestProject' , function(){return TestProject});
