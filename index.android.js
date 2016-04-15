@@ -12,7 +12,8 @@ import React, {
   View,
   TouchableHighlight,
   ScrollView,
-  Navigator
+  Navigator,
+  BackAndroid,
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -21,7 +22,7 @@ var styles = StyleSheet.create({
     },
     container:{
         flex:1,
-        margin: 30,
+        
     },
     box:{
         padding: 20,
@@ -55,6 +56,14 @@ var styles = StyleSheet.create({
 });
 
 var _navigator;
+
+BackAndroid.addEventListener('hardwareBackPress', () => {
+  if (_navigator && _navigator.getCurrentRoutes().length > 1) {
+    _navigator.pop();
+    return true;
+  }
+  return false;
+});
 
 class TestPage extends Component{
     
