@@ -80,9 +80,4 @@ class LoginPage extends React.Component{
     }
 };
 
-
-
-
-
-
 AppRegistry.registerComponent('TestProject' , function(){return LoginPage});
