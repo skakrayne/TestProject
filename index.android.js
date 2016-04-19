@@ -137,7 +137,7 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
 };
 
 
-class TestProject extends React.Component{
+class ReactNativeProject extends React.Component{
      render(){
          var navigator = <Navigator
                             style={styles.container}
@@ -149,4 +149,4 @@ class TestProject extends React.Component{
 };
 
 
-AppRegistry.registerComponent('TestProject' , function(){return TestProject});
+AppRegistry.registerComponent('HelloReactNative' , function(){return ReactNativeProject});

@@ -15,35 +15,36 @@ var {
 
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    borderBottomColor:"#808080",
-    borderBottomWidth:1
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-    
-  },
+        container: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F5FCFF',
+            borderBottomColor:"#808080",
+            borderBottomWidth:1,
+            paddingRight: 10
+        },
+        rightContainer: {
+            flex: 1,
+        },
+        title: {
+            fontSize: 20,
+            marginBottom: 8,
+            textAlign: 'center',
+        },
+        year: {
+            textAlign: 'center',
+        },
+        thumbnail: {
+            width: 73,
+            height: 81,
+        },
+        listView: {
+            paddingTop: 20,
+            backgroundColor: '#F5FCFF',
+            marginTop: 45
+        },
   
 });
 
@@ -53,7 +54,7 @@ var PAGE_SIZE = 25;
 var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 var REQUEST_URL = API_URL + PARAMS;
 
-class ListPage extends Component {
+class BookList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -80,7 +81,6 @@ class ListPage extends Component {
       .done();
   }
   
-  
 
 render() {
     if (!this.state.loaded) {
@@ -90,8 +90,7 @@ render() {
         <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderMovie}
-        style={styles.listView}
-      />
+        style={styles.listView}/>
    
   );
 }
@@ -124,4 +123,4 @@ renderLoadingView() {
 }
 
 
-module.exports = ListPage;
+module.exports = BookList;
